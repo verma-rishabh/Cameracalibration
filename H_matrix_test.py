@@ -41,6 +41,8 @@ def image1_callback(msg):
     transformed_img_msg.width = img2.shape[1]
     transformed_img_msg.step = img2.strides[0]
     transformed_img_msg.encoding = 'bgr8'
+    
+    # attach to frame_id created according to the coc_centered.json
     transformed_img_msg.header.frame_id = "freicar_6/zed_right_camera_optical_frame1"
     transformed_img_msg.header.stamp = stamp
     transformed_img_msg.data = img2.flatten().tolist()
