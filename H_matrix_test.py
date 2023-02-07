@@ -1,16 +1,12 @@
 import rospy
-# ROS Image message
 from sensor_msgs.msg import Image
-# ROS Image message -> OpenCV2 image converter
 from cv_bridge import CvBridge, CvBridgeError
 import time
 import numpy as np
 from sensor_msgs.msg import CameraInfo, Image
-import numpy
 import cv2
 from cv2 import aruco
-import pickle
-import glob
+
 # Instantiate CvBridge
 bridge = CvBridge()
 
@@ -18,14 +14,10 @@ bridge = CvBridge()
 
 
 # Create the arrays and variables we'll use to store info like corners and IDs from images processed
-corners_all_image1 = []  # Corners discovered in all images processed
-ids_all_image1 = []  # Aruco ids corresponding to corners discovered
+corners_all_image1 = [] 
+ids_all_image1 = [] 
 image_size_image1 = None  # Determined at runtime
 
-# This requires a set of images or a video taken with the camera you want to calibrate
-# I'm using a set of images taken with the camera with the naming convention:
-# 'camera-pic-of-charucoboard-<NUMBER>.jpg'
-# All images used should be the same size, which if taken with the same camera shouldn't be a problem
 
 
 
@@ -33,16 +25,11 @@ def image1_callback(msg):
     global image1_count, image_size_image1,image1
     print("Received an image!")
         try:
-        # Convert your ROS Image message to OpenCV2
-        cv2_img = bridge.imgmsg_to_cv2(msg, "bgr8")
-    except getopt.GetoptError as e:
-        print(e)
-        # Grayscale the image
-        # Save your OpenCV2 image as a jpeg
-    #cv2.imshow('camera_image', cv2_img)
-    #cv2.waitKey(1)
-    img = cv2_img
-    image1 = img.copy()
+            # Convert your ROS Image message to OpenCV2
+            cv2_img = bridge.imgmsg_to_cv2(msg, "bgr8")
+        except getopt.GetoptError as e:
+            print(e)
+    image1 = cv2_img.copy()
     rows, cols, _ = image1.shape
     H=np.array( [[-4.52018445e+01, -5.25774457e-02,  9.51744259e+03],\
  [ 2.60533950e-01, -4.34107644e+01,  5.82263270e+03],\

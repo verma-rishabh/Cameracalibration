@@ -10,7 +10,7 @@ import cv2
 from cv2 import aruco
 import json
 import glob
-from camera_calibration_mono_final import calibration_intrinsic
+from camera_calibration_mono import calibration_intrinsic
 # Instantiate CvBridge
 bridge = CvBridge()
 
@@ -88,7 +88,7 @@ if __name__ == "__main__":
         dist3 = np.array(data['zed_right']['dist_coeff'])
     T_board = np.array([[1.68],[-.30],[.70]])
     R_board,_ = cv2.Rodrigues(np.float32([[0,0,-1],[1,0,0],[0,-1,0]]))
-   
+    # Destroy any open CV windows
     zed_left_rvecs,zed_left_tvecs = coc_centered(zed_right,mat3,dist3,R_board,T_board)
     zed_right_rvecs, zed_right_tvecs = coc_centered(zed_left, mat2, dist2, R_board, T_board)
     d435_color_rvecs, d435_color_tvecs = coc_centered(d435_color, mat1, dist1, R_board, T_board)
